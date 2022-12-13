@@ -1,4 +1,3 @@
-import process from 'node:process';
 import { access } from 'node:fs/promises';
 import { setCurrentPath, getCurrentPath } from '../utils/current-path.js';
 import path from 'path';
