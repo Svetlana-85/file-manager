@@ -1,6 +1,8 @@
 import process from 'node:process';
 import { handlerCd } from './handlerCd.js';
 import { handlerUp } from './handlerUp.js';
+import { handlerLs } from './handlerLs.js';
+import { handlerCat } from './handlerLs.js';
 
 export const operationHandler = async(operation) => {
     switch (operation.split(' ')[0]) {
@@ -11,10 +13,10 @@ export const operationHandler = async(operation) => {
             handlerUp(operation);
             break;
         case 'ls':
-            process.stdout.write('operation ls\n');
+            handlerLs(operation);
             break;
         case 'cat':
-            process.stdout.write('operation cat\n');
+            handlerCat(operation);
             break;
         case 'add':
             process.stdout.write('operation add\n');
