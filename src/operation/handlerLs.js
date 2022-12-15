@@ -17,6 +17,11 @@ const createTableList = async() => {
             const type = item.isFile()?'file':item.isDirectory?'directory':'undefined';
             arrObj.push ({'name': item.name, 'type': type});
         });
+        arrObj.sort((a, b) => {
+            if (a.type > b.type) return 1;
+            if (a.type < b.type) return -1;
+            a.name > b.name? 1: -1;
+        });
         console.table(arrObj);
         
     } catch (err) {
