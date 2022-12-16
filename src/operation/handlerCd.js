@@ -1,6 +1,7 @@
-import { access } from 'node:fs/promises';
 import { setCurrentPath, getCurrentPath } from '../utils/current-path.js';
+import { isAccessPath } from '../utils/path.js';
 import path from 'path';
+import { parseOperation } from '../utils/path.js';
 
 export const handlerCd = async (operation) => {
     const arrParamOperation = parseOperation(operation.trim());
@@ -26,28 +27,4 @@ const getNewPath = async (currentPath, newPath) => {
     } else {
         console.log('Operation failed');
     }
-}
-
-const isAccessPath = async (path) => {
-    try {
-        await access(path);
-        return true;
-    } catch {
-        return false;
-    }
-}
-
-const parseOperation = (operation) => {
-    let arrArgs = [];
-    if (operation.indexOf('"') != -1) {
-        arrArgs = operation.split('"');
-        arrArgs.pop();
-    } else if (operation.indexOf("'") != -1) {
-        arrArgs = operation.split("'");
-        arrArgs.pop();
-    } else {
-        arrArgs = operation.split(" ");
-    }
-
-    return arrArgs;
 }
