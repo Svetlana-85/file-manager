@@ -10,7 +10,6 @@ export const handlerRm = async(operation) => {
         return;
     }
     const pathFile = path.join(getCurrentPath(), arrParamOperation[1]);
-    console.log(pathFile);
 
     try {
         await unlink(pathFile).then(() => {
