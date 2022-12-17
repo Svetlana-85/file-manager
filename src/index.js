@@ -1,4 +1,3 @@
-import fs from 'node:fs';
 import { parseName } from './utils/userName.js';
 import readline from 'readline';
 import { stdin as input, stdout as output } from 'node:process';

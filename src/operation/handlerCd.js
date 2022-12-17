@@ -1,7 +1,6 @@
-import { setCurrentPath, getCurrentPath } from '../utils/current-path.js';
-import { isAccessPath } from '../utils/path.js';
 import path from 'path';
-import { parseOperation } from '../utils/path.js';
+import { setCurrentPath, getCurrentPath } from '../utils/current-path.js';
+import { parseOperation, isAccessPath } from '../utils/path.js';
 
 export const handlerCd = async (operation) => {
     const arrParamOperation = parseOperation(operation.trim());

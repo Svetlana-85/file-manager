@@ -3,6 +3,7 @@ import { handlerCd } from './handlerCd.js';
 import { handlerUp } from './handlerUp.js';
 import { handlerLs } from './handlerLs.js';
 import { handlerCat } from './handlerCat.js';
+import { handlerAdd } from './handlerAdd.js';
 
 export const operationHandler = async(operation) => {
     switch (operation.split(' ')[0]) {
@@ -19,7 +20,7 @@ export const operationHandler = async(operation) => {
             await handlerCat(operation);
             break;
         case 'add':
-            process.stdout.write('operation add\n');
+            await handlerAdd(operation);
             break;
         case 'rn':
             process.stdout.write('operation rn\n');
