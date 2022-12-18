@@ -9,6 +9,7 @@ import { handlerRm } from './handlerRm.js';
 import { handlerHash } from './handlerHash.js';
 import { handlerCp } from './handlerCp.js';
 import { handlerMv } from './handlerMv.js';
+import { handlerOs } from './handlerOs.js';
 
 export const operationHandler = async(operation) => {
     switch (operation.split(' ')[0]) {
@@ -40,7 +41,7 @@ export const operationHandler = async(operation) => {
             await handlerRm(operation);
             break;
         case 'os':
-            process.stdout.write('operation os\n');
+            await handlerOs(operation);
             break;
         case 'hash':
             await handlerHash(operation);
