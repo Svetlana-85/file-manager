@@ -1,24 +1,41 @@
-import path from 'path';
-import { stat, writeFile } from 'node:fs/promises';
+import path, { join } from 'path';
+import { rename, stat } from 'node:fs/promises';
 import { getCurrentPath } from '../utils/current-path.js';
-import { parseOperation } from '../utils/path.js';
+import { parseOperation3Args, isAccessPath } from '../utils/path.js';
 
 export const handlerRn = async(operation) => {
-    const arrParamOperation = parseOperation(operation.trim());
+    const arrParamOperation = parseOperation3Args(operation.trim());
     if (arrParamOperation.length != 3) {
         console.log('Invalid input');
         return;
     }
-    const pathFile = path.join(getCurrentPath(), arrParamOperation[1]);
+    let pathFile = arrParamOperation[1];
+    if (pathFile[1].indexOf(':') === -1) {
+        pathFile = path.join(getCurrentPath(), pathFile);
+    }
+    console.log('pathFile ' + pathFile);
     try {
-        await stat(pathFile).then(() => {
-            console.log('file exists');
-        }).catch(async () => {
-            await writeFile(pathFile, '', (err) => {
-                if (err) console.log('Operation failed');
+        if (isAccessPath(pathFile)) {
+            const pathNewFile = getPathNewFile(pathFile, arrParamOperation[2]);
+            console.log('pathNewFile ' + pathNewFile);
+            await stat(pathNewFile).then(() => {
+                console.log('Operation failed');
+            }).catch(async () => {
+                await rename(pathFile, pathNewFile).catch(() => {
+                    console.log('Operation failed');
+                });
             });
-        });
+        } else {
+            console.log('Operation failed');
+        }
     } catch {
         console.log('Operation failed');
     }
+}
+
+const getPathNewFile = (pathFile, fileName) => {
+    console.log('pathFile ' + pathFile);
+    const pos = pathFile.lastIndexOf('\\') ===-1 ? pathFile.lastIndexOf('/') : pathFile.lastIndexOf('\\');
+    if (pos !== -1) return join(pathFile.slice(0, pos), fileName);
+    else return fileName;
 }

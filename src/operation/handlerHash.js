@@ -15,12 +15,12 @@ export const handlerHash = async (operation) => {
 
     try {
         const contents = await readFile(pathFile, { encoding: 'utf8' }).catch(() => {
-            console.log('1 Operation failed');
+            console.log('Operation failed');
             return;
         });
         const hash = crypto.createHash('sha256').update(contents).digest('hex');
         console.log(hash);
     } catch {
-        console.log('2 Operation failed');
+        console.log('Operation failed');
     }
 }

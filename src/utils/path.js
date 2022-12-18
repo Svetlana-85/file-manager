@@ -17,16 +17,25 @@ export const parseOperation = (operation) => {
 
 export const parseOperation3Args = (operation) => {
     let arrArgs = [];
-    if (operation.indexOf('"') != -1) {
+    console.log(operation);
+    if (operation.indexOf('"') !== -1 && operation.indexOf("'") !== -1) return arrArgs;
+    if (operation.indexOf('"') !== -1) {
         arrArgs = operation.split('"');
-        arrArgs.pop();
-    } else if (operation.indexOf("'") != -1) {
+    } else if (operation.indexOf("'") !== -1) {
         arrArgs = operation.split("'");
-        arrArgs.pop();
     } else {
         arrArgs = operation.split(" ");
     }
-
+    arrArgs = arrArgs.filter((item) => {
+        if (item !== '' && item !== ' ') return item;
+    })
+    if (arrArgs[0].length > 3) {
+        let buff = (arrArgs[0].trim()).split(' ');
+        buff.push(arrArgs[1]);
+        console.log(buff);
+        return buff;
+}
+    console.log(arrArgs);
     return arrArgs;
 }
 
