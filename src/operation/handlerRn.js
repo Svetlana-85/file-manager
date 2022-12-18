@@ -13,11 +13,9 @@ export const handlerRn = async(operation) => {
     if (pathFile[1].indexOf(':') === -1) {
         pathFile = path.join(getCurrentPath(), pathFile);
     }
-    console.log('pathFile ' + pathFile);
     try {
         if (isAccessPath(pathFile)) {
             const pathNewFile = getPathNewFile(pathFile, arrParamOperation[2]);
-            console.log('pathNewFile ' + pathNewFile);
             await stat(pathNewFile).then(() => {
                 console.log('Operation failed');
             }).catch(async () => {
@@ -34,7 +32,6 @@ export const handlerRn = async(operation) => {
 }
 
 const getPathNewFile = (pathFile, fileName) => {
-    console.log('pathFile ' + pathFile);
     const pos = pathFile.lastIndexOf('\\') ===-1 ? pathFile.lastIndexOf('/') : pathFile.lastIndexOf('\\');
     if (pos !== -1) return join(pathFile.slice(0, pos), fileName);
     else return fileName;
