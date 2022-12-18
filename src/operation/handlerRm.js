@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 import { unlink } from 'node:fs/promises';
 import { getCurrentPath } from '../utils/current-path.js';
 import { parseOperation } from '../utils/path.js';
@@ -12,9 +12,7 @@ export const handlerRm = async(operation) => {
     const pathFile = path.join(getCurrentPath(), arrParamOperation[1]);
 
     try {
-        await unlink(pathFile).then(() => {
-            console.log('file delete');
-        }).catch(() => {
+        await unlink(pathFile).catch(() => {
             console.log('Operation failed');
         });
     } catch {

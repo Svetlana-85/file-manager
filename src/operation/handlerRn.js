@@ -1,4 +1,4 @@
-import path, { join } from 'path';
+import path from 'node:path';
 import { rename, stat } from 'node:fs/promises';
 import { getCurrentPath } from '../utils/current-path.js';
 import { parseOperation3Args, isAccessPath } from '../utils/path.js';
@@ -9,7 +9,7 @@ export const handlerRn = async(operation) => {
         console.log('Invalid input');
         return;
     }
-    let pathFile = arrParamOperation[1];
+    let pathFile = arrParamOperation[1].trim();
     if (pathFile[1].indexOf(':') === -1) {
         pathFile = path.join(getCurrentPath(), pathFile);
     }
@@ -33,6 +33,6 @@ export const handlerRn = async(operation) => {
 
 const getPathNewFile = (pathFile, fileName) => {
     const pos = pathFile.lastIndexOf('\\') ===-1 ? pathFile.lastIndexOf('/') : pathFile.lastIndexOf('\\');
-    if (pos !== -1) return join(pathFile.slice(0, pos), fileName);
+    if (pos !== -1) return path.join(pathFile.slice(0, pos), fileName);
     else return fileName;
 }
