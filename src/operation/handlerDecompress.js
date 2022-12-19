@@ -15,11 +15,15 @@ export const handlerDecompress = async(operation) => {
             return;
         }
         let pathFile = arrParamOperation[1].trim();
+        console.log('pathFile ' + pathFile);
+        
         if (pathFile[1].indexOf(':') === -1) {
             pathFile = path.join(getCurrentPath(), pathFile);
         }
         let pathNewFile = arrParamOperation[2].trim();
-        if (pathNewFile.length === 1 || pathNewFile[1].indexOf(':') === -1) {
+        console.log('pathNewFile ' + pathNewFile);
+
+        if (pathNewFile[1].indexOf(':') === -1) {
             pathNewFile = path.join(getCurrentPath(), pathNewFile);
         } else {
             pathNewFile = path.join(pathNewFile);
@@ -29,9 +33,7 @@ export const handlerDecompress = async(operation) => {
             await stat(pathNewFile).then(() => {
                 console.log('Operation failed: file exists');
             }).catch(async () => {
-                await writeFile(pathNewFile, '', (err) => {
-                    if (err) console.log('Operation failed');
-                });
+   
                 console.log('1 ');
                 const readStream = fs.createReadStream(pathFile, 'utf8');
                 const writeStream = fs.createWriteStream(pathNewFile, 'utf8');

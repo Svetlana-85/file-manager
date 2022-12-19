@@ -22,7 +22,7 @@ export const operationHandler = async(operation) => {
             handlerUp(operation);
             break;
         case 'ls':
-            handlerLs(operation);
+            await handlerLs(operation);
             break;
         case 'cat':
             await handlerCat(operation);

@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import path from 'path';
 import { parseOperation, isAccessPath } from '../utils/path.js';
 import { getCurrentPath } from '../utils/current-path.js';
 
@@ -27,13 +28,17 @@ export const handlerCat = async (operation) => {
 }
 
 const getPathFile = async (currentPath, newPath) => {
-    if (newPath[1] === ':') {
-        const isAccess = await isAccessPath(newPath);
-        if (isAccess) {
+    if (newPath[1] == ':') {
+        if (await isAccessPath(newPath)) {
             return newPath;
-        } else {
-            console.log('File not found');
-        }
+        }     
     }
-    return path.join(currentPath, newPath);
+
+    const joinPath = path.join(currentPath, newPath);
+ 
+    if (await isAccessPath(joinPath)){
+        return joinPath;
+    } else {
+        console.log('Operation failed');
+    }
 }
