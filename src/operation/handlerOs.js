@@ -1,7 +1,4 @@
 import os from 'os';
-import { stat, writeFile } from 'node:fs/promises';
-import { getCurrentPath } from '../utils/current-path.js';
-import { parseOperation } from '../utils/path.js';
 
 export const handlerOs = async(operation) => {
     const paramOperation = operation.trim().split(' ')[1];
@@ -13,7 +10,7 @@ export const handlerOs = async(operation) => {
             let result = os.cpus();
             console.log(`Count CPUs: ${result.length}`);
             result = result.map((item) => {
-                console.log(`model: ${item.model}, speed: ${(item.speed / 1000).toFixed(2)} GHz`);
+                console.log(`model: ${item.model}, speed: ${(item.speed/1000).toFixed(2)} GHz`);
             });
             break;
         case '--homedir':

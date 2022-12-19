@@ -10,6 +10,8 @@ import { handlerHash } from './handlerHash.js';
 import { handlerCp } from './handlerCp.js';
 import { handlerMv } from './handlerMv.js';
 import { handlerOs } from './handlerOs.js';
+import { handlerCompress } from './handlerCompress.js';
+import { handlerDecompress } from './handlerDecompress.js';
 
 export const operationHandler = async(operation) => {
     switch (operation.split(' ')[0]) {
@@ -47,10 +49,10 @@ export const operationHandler = async(operation) => {
             await handlerHash(operation);
             break;
         case 'compress':
-            process.stdout.write('operation compress\n');
+            await handlerCompress(operation);
             break;
         case 'decompress':
-            process.stdout.write('operation decompress\n');
+            await handlerDecompress(operation);
             break;
         default: process.stdout.write('Invalid input\n');;
     }
