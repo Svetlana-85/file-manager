@@ -9,7 +9,6 @@ import zlib from 'node:zlib';
 export const handlerCompress = async(operation) => {
     try {
         const arrParamOperation = parseOperation3Args(operation.trim());
-        console.log(arrParamOperation);
         if (arrParamOperation.length != 3) {
             console.log('Invalid input');
             return;
